@@ -7,7 +7,7 @@
 using namespace cocos2d;
 
 #define StickManTag						100
-#define InvincibleGoldNum				5
+#define InvincibleGoldNum				1
 
 class MatchstickMan : public Entity
 {
@@ -20,7 +20,7 @@ public:
 public:
 
 	Animate*  creatAnimateRUN();
-	Animate*  AnimateInvincible();
+//	Animate*  AnimateInvincible();
 	
 	void jump();
 	void addJumpTimes();
@@ -33,12 +33,23 @@ public:
 	void ExitInvincible();
 
 	virtual void setEBody();
-
 private:
 	int GoldNumber;
 	int JumpTimes;
 	
 	//Sprite* InvincibleSprite;
+};
+class InvincibleStickMan : public MatchstickMan {
+private:
+	MatchstickMan *_Man;
+public:
+	InvincibleStickMan(){}
+	InvincibleStickMan(MatchstickMan *m_Man) {
+		_Man = m_Man;
+	}
+	//~InvincibleStickMan(){}
+	Animate*  AnimateInvincible();
+	
 };
 #endif // !__MATCHSTICK_MAN_H__
 

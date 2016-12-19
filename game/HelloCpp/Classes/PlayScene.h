@@ -85,8 +85,7 @@ private:
 	//The following private members are different entities defined by single object or Vector.
 	
 	MatchstickMan* hero;					//Our game's hero.
-	Sprite* heroInvincible;					//When the hero get invincible, use this sprite.
-	
+	Sprite* heroInvincible;	   //When the hero get invincible, use this sprite.
 	Board* FirstBoard;						//The First and the longest board when playing starts.
 	Vector<Board*> TopBoards;				//Three rows of boards that make a matrix of boards,
 	Vector<Board*> MidBoards;				//and hero can run on every boards. When hero's

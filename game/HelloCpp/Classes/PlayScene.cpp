@@ -54,7 +54,9 @@ bool PlayScene::init()
 	addEntitySprite(hero, 5);
 	
 	heroInvincible = Sprite::create("runIn1.png");
-	heroInvincible->runAction(hero->AnimateInvincible());
+	//heroInvincible->runAction(hero->AnimateInvincible());
+	auto hero2= new InvincibleStickMan(hero);
+	heroInvincible->runAction(hero2->AnimateInvincible());
 	heroInvincible->setVisible(false);
 	this->addChild(heroInvincible, 5);
 

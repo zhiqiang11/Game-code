@@ -88,7 +88,7 @@ Animate* MatchstickMan::creatAnimateRUN()
 	return action;
 }
 
-Animate * MatchstickMan::AnimateInvincible()
+/*Animate * MatchstickMan::AnimateInvincible()
 {
 	SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
 	frameCache->addSpriteFramesWithFile("runsIn.plist", "runsIn.png");
@@ -110,7 +110,7 @@ Animate * MatchstickMan::AnimateInvincible()
 	Animate* action = Animate::create(animation);
 
 	return action;
-}
+}*/
 
 void MatchstickMan::addJumpTimes()
 {
@@ -120,4 +120,27 @@ void MatchstickMan::addJumpTimes()
 void MatchstickMan::resetJumpTimes()
 {
 	JumpTimes = 0;
+}
+Animate * InvincibleStickMan::AnimateInvincible()
+{
+	SpriteFrameCache* frameCache = SpriteFrameCache::getInstance();
+	frameCache->addSpriteFramesWithFile("runsIn.plist", "runsIn.png");
+
+
+	int iFrameNum = 6;
+	SpriteFrame* frame = NULL;
+	Vector<SpriteFrame*>frameVec;
+
+	for (int i = 1; i <= iFrameNum; i++)
+	{
+		frame = frameCache->getSpriteFrameByName(StringUtils::format("runIn%d.png", i));
+		frameVec.pushBack(frame);
+	}
+	Animation* animation = Animation::createWithSpriteFrames(frameVec);
+	animation->setLoops(-1);
+	animation->setDelayPerUnit(0.05f);
+
+	Animate* action = Animate::create(animation);
+
+	return action;
 }
