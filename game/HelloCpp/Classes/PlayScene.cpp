@@ -99,6 +99,12 @@ bool PlayScene::init()
 			origin.y + visibleSize.height / 8));
 
 
+		/*addEntitySprite(topBoard, 1);
+		TopBoards->Push(topBoard);
+		addEntitySprite(midBoard, 1);
+		MidBoards->Push(midBoard);
+		addEntitySprite(bottomBoard, 1);
+		BotBoards->Push(bottomBoard);*/
 		addEntitySprite(topBoard, 1);
 		TopBoards.pushBack(topBoard);
 		addEntitySprite(midBoard, 1);
@@ -115,6 +121,7 @@ bool PlayScene::init()
 		addEntitySprite(sword, 2);
 		sword->hide();
 		sword->getSprite()->runAction(sword->creatAnimateFly());
+		//AttackSwords->Push(sword);
 		AttackSwords.pushBack(sword);
 	}
 
@@ -128,6 +135,7 @@ bool PlayScene::init()
 			FirstBoard->getSprite()->getContentSize().height +
 			monster->getSprite()->getContentSize().height / 2));
 		addEntitySprite(monster, 2);
+		//Monsters->Push(monster);
 		Monsters.pushBack(monster);
 	}
 
@@ -141,7 +149,7 @@ bool PlayScene::init()
 			4*gold->getSprite()->getContentSize().height / 2));
 		
 		addEntitySprite(gold, 2);
-		Golds.pushBack(gold); 
+		Golds->Push(gold); 
 	}
 
 	//The top edge of the physics world,which prevents the hero from jumping out of the screen
@@ -182,12 +190,50 @@ void PlayScene::update(float delta)
 	//so the drop speed of the hero will be accelerate too.
 	for (int count = 0; count < BoardNumber; count++)
 	{
+		/*TopBoards->Pop(count)->fly();
+		MidBoards->Pop(count)->fly();
+		BotBoards->Pop(count)->fly();
+						
+		randomFly(TopBoards->Pop(count), MidBoards->Pop(count), BotBoards->Pop(count), 3);
+		
+		//Change the difficulty according to the current time.
+		addDifficulty(TopBoards->Pop(count));
+		addDifficulty(MidBoards->Pop(count));
+		addDifficulty(BotBoards->Pop(count));
+	}
+	//To judge if the hero drops lower than the bottom boards.If true, you will lose the game.
+	if (hero->getSprite()->getPosition().y < (FirstBoard->getPosition().y + hero->getSprite()->getPosition().y / 2))
+	{
+		this->getScene()->getPhysicsWorld()->setGravity(Vec2(0.0f, -10000.0f));
+		GameOver();
+	}
+	//To make the attacking weapon of the hero fly.
+	SwordIterator* sworditer = AttackSwords->CreateIterator();
+	//ConcreteAggregate<Sword*>::ConcreteIterator sworditer(AttackSwords);
+	sworditer->Next()->fly();
+	/*for (auto sword : AttackSwords)
+	{
+		sword->SwordFly();
+	}*/
+	//To make the monsters random fly.Just like boards.
+	/*MonsterIterator* monsteriter = Monsters->CreateIterator();
+	//ConcreteAggregate<Monster*>::ConcreteIterator monsteriter(Monsters);
+	for (int i=0;i<Monsters->Count();i++)
+	{
+		monsteriter->Getenty(i)->fly();
+		addDifficulty(monsteriter->Getenty(i));
+	}
+	randomFly(Monsters->Pop(0), Monsters->Pop(1), Monsters->Pop(2), 5);
+	
+	//To make the golds fly, just like the boards and the monsters.
+	GoldIterator* golditer = Golds->CreateIterator();
+	//ConcreteAggregate<Gold*>::ConcreteIterator golditer(Golds);*/
 		TopBoards.at(count)->fly();
 		MidBoards.at(count)->fly();
 		BotBoards.at(count)->fly();
-						
+
 		randomFly(TopBoards.at(count), MidBoards.at(count), BotBoards.at(count), 3);
-		
+
 		//Change the difficulty according to the current time.
 		addDifficulty(TopBoards.at(count));
 		addDifficulty(MidBoards.at(count));
@@ -211,14 +257,15 @@ void PlayScene::update(float delta)
 		addDifficulty(monster);
 	}
 	randomFly(Monsters.at(0), Monsters.at(1), Monsters.at(2), 5);
-	
-	//To make the golds fly, just like the boards and the monsters.
-	for (auto gold : Golds)
+
+	Iterator* golditer = Golds->CreateIterator();
+	for (int j=0;j<Golds->Count();j++)
 	{
-		gold->fly();
-		addDifficulty(gold);
+		golditer->Getenty(j)->fly();
+		//gold->fly();
+		addDifficulty(golditer->Getenty(j));
 	}
-	randomFly(Golds.at(0), Golds.at(1), Golds.at(2), 4);
+	randomFly(Golds->Pop(0), Golds->Pop(1), Golds->Pop(2), 4);
 }
 
 void PlayScene::menuPauseCallback(cocos2d::Ref * pSender)
@@ -383,6 +430,8 @@ void PlayScene::addTouchListener()
 
 bool PlayScene::touchBegan(const std::vector< Touch * > &  touches, Event * event)
 {
+	 //SwordIterator* sworditer = AttackSwords->CreateIterator();
+	//ConcreteAggregate<Sword*>::ConcreteIterator sworditer(AttackSwords);
 	for (auto touch : touches)
 	{
 		if (LeftIsTap(this, touch))
@@ -394,6 +443,8 @@ bool PlayScene::touchBegan(const std::vector< Touch * > &  touches, Event * even
 		{
 			for (auto sword : AttackSwords)
 			{
+				//auto sword = sworditer->Getenty(m);
+
 				if (sword->FlyFinished())
 				{
 					sword->getSprite()->setPosition(Vec2(hero->getSprite()->getPosition().x + 

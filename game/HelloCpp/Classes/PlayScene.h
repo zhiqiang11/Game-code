@@ -23,7 +23,7 @@
 //The following header file is for the producing random number purpose
 #include <random>
 
-#include "mlist.h"
+#include "GoldIterator.h"
 
 USING_NS_CC;										//using namespace cocos2d
 
@@ -89,20 +89,22 @@ private:
 	MatchstickMan* hero;					//Our game's hero.
 	Sprite* heroInvincible;	   //When the hero get invincible, use this sprite.
 	Board* FirstBoard;						//The First and the longest board when playing starts.
-	mlist<Board*> TopBoards;				//Three rows of boards that make a matrix of boards,
-	mlist<Board*> MidBoards;				//and hero can run on every boards. When hero's
-	mlist<Board*> BotBoards;				//position.y<=the bottomBoard's position,game over.
-
+	//BoardAggregate* TopBoards =new BoardAggregate();				//Three rows of boards that make a matrix of boards,
+	//BoardAggregate* MidBoards = new BoardAggregate();				//and hero can run on every boards. When hero's
+	//BoardAggregate* BotBoards = new BoardAggregate();				//position.y<=the bottomBoard's position,game over.
+	Vector<Board*> TopBoards;
+	Vector<Board*> MidBoards;
+	Vector<Board*> BotBoards;
 											//The attck weapon of the hero,
-	mlist<Sword*> AttackSwords;			//which can beat the monsters.
+	//SwordAggregate* AttackSwords =new SwordAggregate();			//which can beat the monsters.
 											//But hero can only release 3(SwordNum) at one time.
-
+	Vector<Sword*> AttackSwords;
 											//The monsters that to be beat or elude,
-	Vector<Monster*> Monsters;				//but when the hero crash to the monster,game will over.
+	//MonsterAggregate* Monsters = new MonsterAggregate();				//but when the hero crash to the monster,game will over.
 											//Beat monster will bring score bonus.
-
+	Vector<Monster*> Monsters;
 											//The golds that can bring score bonus 
-	Vector<Gold*> Golds;					//and when gold number come to some degree,
+	ConcreteAggregate* Golds = new ConcreteAggregate();					//and when gold number come to some degree,
 											//hero will get invincible
 };
 

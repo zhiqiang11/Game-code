@@ -24,6 +24,8 @@ public:
 	virtual void hide();
 	virtual void show();
 	bool isStart();
+	//void SwordFly();
+	//bool FlyFinished();
 
 protected:
 	
@@ -32,7 +34,7 @@ protected:
 
 	float posX;
 	float speed;
-
+	//bool CanFlyAgain;
 };
 
 
