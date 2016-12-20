@@ -23,6 +23,8 @@
 //The following header file is for the producing random number purpose
 #include <random>
 
+#include "mlist.h"
+
 USING_NS_CC;										//using namespace cocos2d
 
 #define TimeTag										303
@@ -87,12 +89,12 @@ private:
 	MatchstickMan* hero;					//Our game's hero.
 	Sprite* heroInvincible;	   //When the hero get invincible, use this sprite.
 	Board* FirstBoard;						//The First and the longest board when playing starts.
-	Vector<Board*> TopBoards;				//Three rows of boards that make a matrix of boards,
-	Vector<Board*> MidBoards;				//and hero can run on every boards. When hero's
-	Vector<Board*> BotBoards;				//position.y<=the bottomBoard's position,game over.
+	mlist<Board*> TopBoards;				//Three rows of boards that make a matrix of boards,
+	mlist<Board*> MidBoards;				//and hero can run on every boards. When hero's
+	mlist<Board*> BotBoards;				//position.y<=the bottomBoard's position,game over.
 
 											//The attck weapon of the hero,
-	Vector<Sword*> AttackSwords;			//which can beat the monsters.
+	mlist<Sword*> AttackSwords;			//which can beat the monsters.
 											//But hero can only release 3(SwordNum) at one time.
 
 											//The monsters that to be beat or elude,
