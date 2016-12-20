@@ -24,6 +24,7 @@
 #include <random>
 
 #include "GoldIterator.h"
+#include "Factory.h"
 
 USING_NS_CC;										//using namespace cocos2d
 

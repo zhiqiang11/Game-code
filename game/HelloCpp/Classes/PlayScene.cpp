@@ -44,9 +44,10 @@ bool PlayScene::init()
 	BeatMonsterAmount = 0;
 
 	//Init FirstBoard and hero
-	FirstBoard = Board::create();
-
-	hero = MatchstickMan::create();
+	//FirstBoard = Board::create();
+	FirstBoard = BoardFactory::GetInstance4()->create();
+	//hero = MatchstickMan::create();
+	hero = ManFactory::GetInstance3()->create();
 	hero->getSprite()->setPosition(Vec2(origin.x + visibleSize.width / 4,
 		origin.y + visibleSize.height / 8 + hero->getSprite()->getContentSize().height / 2 
 		+ FirstBoard->getSprite()->getContentSize().height / 2));
@@ -72,10 +73,12 @@ bool PlayScene::init()
 	//Initialize boards
 	for (int count = 0; count < BoardNumber; count++)
 	{
-		auto topBoard = Board::create();
-		auto midBoard = Board::create();
-		auto bottomBoard = Board::create();
-
+		//auto topBoard = Board::create();
+		//auto midBoard = Board::create();
+		//auto bottomBoard = Board::create();
+		auto topBoard= BoardFactory::GetInstance4()->create();
+		auto midBoard = BoardFactory::GetInstance4()->create();
+		auto bottomBoard = BoardFactory::GetInstance4()->create();
 		auto fourWidth = visibleSize.width / BoardNumber;
 		double firstWidth = 0.75*0.5 / BoardNumber;
 
@@ -116,7 +119,7 @@ bool PlayScene::init()
 	//Init Swords
 	for (int count = 0; count < SwordNum; count++)
 	{
-		auto sword = Sword::create();
+		auto sword = SwordFactory::GetInstance1()->create();
 
 		addEntitySprite(sword, 2);
 		sword->hide();
@@ -128,7 +131,7 @@ bool PlayScene::init()
 	//Init Monsters
 	for (int count = 0; count < MonsterNum; count++)
 	{
-		auto monster = Monster::create();
+		auto monster = MonsterFactory::GetInstance5()->create();
 		monster->getSprite()->setPosition(Vec2(origin.x + visibleSize.width +
 			monster->getSprite()->getContentSize().width,
 			origin.y + (2 * count + 1) *visibleSize.height / 8 + 
@@ -142,7 +145,7 @@ bool PlayScene::init()
 	//Init Golds
 	for (int count = 0; count < GoldNum; count++)
 	{
-		auto gold = Gold::create();
+		auto gold = GoldFactory::GetInstance2()->create();
 		gold->getSprite()->setPosition(Vec2(origin.x + visibleSize.width +
 			gold->getSprite()->getContentSize().width,
 			origin.y + (2 * count + 1) *visibleSize.height / 8 +

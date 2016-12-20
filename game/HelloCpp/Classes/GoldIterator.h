@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _GoldIterator_H_
+#define _GoldIterator_H_
+
 #include <iostream>  
 #include <string>  
 #include <vector>
@@ -116,3 +118,5 @@ private:
 	Vector<Gold*> m_vecItem;
 	Iterator *m_pIterator;
 };
+
+#endif
